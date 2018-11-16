@@ -1,7 +1,7 @@
 {
   "name": "modern-react",
   "version": "1.0.0",
-  "description": "This is a workshop repo to teach you about using all the goodies we got from React 16.6.0!",
+  "description": "This is a workshop repo to teach you about using all the goodies we got from React 16.7.0!",
   "keywords": [],
   "homepage": "http://modern-react.netlify.com/",
   "main": "src/index.js",
