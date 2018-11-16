@@ -1,0 +1,46 @@
+{
+  "projectName": "modern-react",
+  "projectOwner": "kentcdodds",
+  "repoType": "github",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "kentcdodds",
+      "name": "Kent C. Dodds",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1500684?v=3",
+      "profile": "https://kentcdodds.com",
+      "contributions": [
+        "code",
+        "doc",
+        "infra",
+        "test"
+      ]
+    },
+    {
+      "login": "acdlite",
+      "name": "Andrew Clark",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/3624098?v=4",
+      "profile": "https://github.com/acdlite",
+      "contributions": [
+        "question",
+        "ideas",
+        "review"
+      ]
+    },
+    {
+      "login": "sophiebits",
+      "name": "Sophie Alpert",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/6820?v=4",
+      "profile": "https://sophiebits.com/",
+      "contributions": [
+        "question",
+        "ideas",
+        "review"
+      ]
+    }
+  ]
+}
