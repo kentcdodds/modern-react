@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, fireEvent} from 'react-testing-library'
+import {render, fireEvent, flushEffects} from 'react-testing-library'
 import Usage from '../exercises-final/04'
 // import Usage from '../exercises/04'
 
@@ -16,6 +16,7 @@ test('Usage works', () => {
   expect(button).toHaveTextContent(/4/)
   fireEvent.click(button)
   expect(button).toHaveTextContent(/5/)
+  flushEffects()
   expect(window.localStorage.getItem('count')).toBe('5')
 })
 
