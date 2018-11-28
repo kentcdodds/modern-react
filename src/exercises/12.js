@@ -7,10 +7,7 @@ import Tilt from '../tilt'
 // 🐨 2. Use React.lazy with a dynamic import of ../tilt and assign that
 // to a variable called Tilt
 
-// Don't make changes to the Usage component. It's here to show you how your
-// component is intended to be used and is used in the tests.
-
-function Usage() {
+function App() {
   const [showTilt, setShowTilt] = useState()
   return (
     <div>
@@ -35,6 +32,13 @@ function Usage() {
       </div>
     </div>
   )
+}
+
+// Don't make changes to the Usage component. It's here to show you how your
+// component is intended to be used and is used in the tests.
+
+function Usage() {
+  return <App />
 }
 Usage.title = 'VanillaTilt: React.lazy'
 
