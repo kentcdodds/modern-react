@@ -24,7 +24,7 @@ import React from 'react'
 //     ;[count, setCount] = useState(0)
 //   }
 //   return (
-//     <button onClick={() => setCount(currentCount => currentCount + 1)}>
+//     <button onClick={() => setCount(count + 1)}>
 //       {count}
 //     </button>
 //   )
@@ -38,7 +38,7 @@ import React from 'react'
 //     items.push(
 //       <button
 //         key={props[items][i].id}
-//         onClick={() => setCount(currentCount => currentCount + 1)}
+//         onClick={() => setCount(count + 1)}
 //       >
 //         {count}
 //       </button>,
@@ -51,7 +51,7 @@ import React from 'react'
 // const [count, setCount] = useState(0)
 // function NoExternalHooks(params) {
 //   return (
-//     <button onClick={() => setCount(currentCount => currentCount + 1)}>
+//     <button onClick={() => setCount(count + 1)}>
 //       {count}
 //     </button>
 //   )
@@ -62,7 +62,7 @@ import React from 'react'
 //     // Wrong: Don't call hooks inside class components
 //     const [count, setCount] = useState(0)
 //     return (
-//       <button onClick={() => setCount(currentCount => currentCount + 1)}>
+//       <button onClick={() => setCount(count + 1)}>
 //         {count}
 //       </button>
 //     )

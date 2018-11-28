@@ -5,7 +5,7 @@ function Counter() {
   const [count, setCount] = useState(
     Number(window.localStorage.getItem('count') || 0),
   )
-  const incrementCount = () => setCount(currentCount => currentCount + 1)
+  const incrementCount = () => setCount(count + 1)
   useEffect(
     () => {
       window.localStorage.setItem('count', count)
