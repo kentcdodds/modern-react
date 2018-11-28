@@ -23,4 +23,4 @@ function Usage() {
 }
 Usage.title = 'Counter: useEffect'
 
-export {Usage as default}
+export default Usage

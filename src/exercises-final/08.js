@@ -88,4 +88,4 @@ function Usage() {
 }
 Usage.title = 'Stopwatch: useReducer (a la redux)'
 
-export {Usage as default}
+export default Usage

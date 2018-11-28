@@ -40,4 +40,4 @@ function Usage() {
 }
 Usage.title = 'React.memo'
 
-export {Usage as default}
+export default Usage

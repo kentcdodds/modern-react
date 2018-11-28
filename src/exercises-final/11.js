@@ -49,4 +49,4 @@ function Usage() {
 }
 Usage.title = 'Fundamental Suspense'
 
-export {Usage as default}
+export default Usage

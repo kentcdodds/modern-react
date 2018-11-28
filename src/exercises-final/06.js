@@ -39,4 +39,4 @@ function Usage() {
 }
 Usage.title = 'VanillaTilt: Custom hook'
 
-export {Usage as default}
+export default Usage

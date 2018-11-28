@@ -97,4 +97,4 @@ function Usage() {
 }
 Usage.title = 'Stopwatch: Custom hook'
 
-export {Usage as default}
+export default Usage

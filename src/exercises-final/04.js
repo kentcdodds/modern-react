@@ -23,4 +23,4 @@ function Usage() {
 }
 Usage.title = 'Counter: useState lazy initialization'
 
-export {Usage as default}
+export default Usage

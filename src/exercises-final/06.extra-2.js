@@ -65,4 +65,4 @@ function Usage() {
 }
 Usage.title = 'VanillaTilt: Support cleanup (and node change)'
 
-export {Usage as default}
+export default Usage

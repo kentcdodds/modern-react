@@ -77,4 +77,4 @@ function Usage() {
 }
 Usage.title = 'Where to NOT use hooks'
 
-export {Usage as default}
+export default Usage

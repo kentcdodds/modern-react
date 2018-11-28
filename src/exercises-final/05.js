@@ -34,4 +34,4 @@ function Usage() {
 }
 Usage.title = 'VanillaTilt: useRef'
 
-export {Usage as default}
+export default Usage

@@ -9,4 +9,4 @@ function Usage() {
 }
 Usage.title = 'TODO'
 
-export {Usage as default}
+export default Usage

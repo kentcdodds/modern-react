@@ -31,4 +31,4 @@ function Usage() {
 }
 Usage.title = 'FetchPokemon: React.lazy'
 
-export {Usage as default}
+export default Usage

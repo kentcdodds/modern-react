@@ -15,4 +15,4 @@ function Usage() {
 }
 Usage.title = 'Counter: useState'
 
-export {Usage as default}
+export default Usage

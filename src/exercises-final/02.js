@@ -20,4 +20,5 @@ function Usage() {
 }
 Usage.title = 'Counter: custom hooks'
 
-export {useCounter, Usage as default}
+export {useCounter}
+export default Usage

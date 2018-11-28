@@ -64,4 +64,4 @@ function Usage() {
 }
 Usage.title = 'Stopwatch: useEffect cleanup'
 
-export {Usage as default}
+export default Usage

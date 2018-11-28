@@ -41,4 +41,4 @@ function Usage() {
 }
 Usage.title = 'Suspense with react-cache'
 
-export {Usage as default}
+export default Usage
