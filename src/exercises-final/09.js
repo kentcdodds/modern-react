@@ -1,4 +1,4 @@
-// Stopwatch: useReducer (a la setState)
+// Stopwatch: Custom hook
 import React, {useReducer, useEffect, useRef} from 'react'
 
 const buttonStyles = {
@@ -14,12 +14,12 @@ function reducer(currentState, newState) {
   return {...currentState, ...newState}
 }
 
-function Stopwatch() {
+function useStopwatch() {
   const [{running, lapse}, setState] = useReducer(reducer, {
     running: false,
     lapse: 0,
   })
-  const timerRef = useRef(null)
+  const timerRef = useRef({timer: null})
 
   useEffect(() => () => clearInterval(timerRef.current), [])
 
@@ -39,6 +39,12 @@ function Stopwatch() {
     clearInterval(timerRef.current)
     setState({running: false, lapse: 0})
   }
+  return {handleRunClick, handleClearClick, lapse, running}
+}
+
+function Stopwatch() {
+  const stopwatchOne = useStopwatch()
+  const stopwatchTwo = useStopwatch()
 
   return (
     <div style={{textAlign: 'center'}}>
@@ -48,13 +54,35 @@ function Stopwatch() {
           display: 'block',
         }}
       >
-        {lapse}
+        {stopwatchOne.lapse}
         ms
       </label>
-      <button onClick={handleRunClick} style={buttonStyles}>
-        {running ? 'Stop' : 'Start'}
+      <button onClick={stopwatchOne.handleRunClick} style={buttonStyles}>
+        {stopwatchOne.running ? 'Stop' : 'Start'}
       </button>
-      <button onClick={handleClearClick} style={buttonStyles}>
+      <button onClick={stopwatchOne.handleClearClick} style={buttonStyles}>
+        Clear
+      </button>
+      <hr />
+      <strong>Lapse Difference:</strong>
+      <span data-testid="diff">
+        {stopwatchOne.lapse - stopwatchTwo.lapse}
+        ms
+      </span>
+      <hr />
+      <label
+        style={{
+          fontSize: '5em',
+          display: 'block',
+        }}
+      >
+        {stopwatchTwo.lapse}
+        ms
+      </label>
+      <button onClick={stopwatchTwo.handleRunClick} style={buttonStyles}>
+        {stopwatchTwo.running ? 'Stop' : 'Start'}
+      </button>
+      <button onClick={stopwatchTwo.handleClearClick} style={buttonStyles}>
         Clear
       </button>
     </div>
@@ -67,6 +95,6 @@ function Stopwatch() {
 function Usage() {
   return <Stopwatch />
 }
-Usage.title = 'Stopwatch: useReducer (a la setState)'
+Usage.title = 'Stopwatch: Custom hook'
 
 export default Usage

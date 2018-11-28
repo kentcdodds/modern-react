@@ -6,12 +6,9 @@ function Counter() {
     Number(window.localStorage.getItem('count') || 0),
   )
   const incrementCount = () => setCount(count + 1)
-  useEffect(
-    () => {
-      window.localStorage.setItem('count', count)
-    },
-    [count],
-  )
+  useEffect(() => {
+    window.localStorage.setItem('count', count)
+  })
   return <button onClick={incrementCount}>{count}</button>
 }
 

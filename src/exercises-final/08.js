@@ -1,4 +1,4 @@
-// Stopwatch: useReducer (a la redux)
+// Stopwatch: useReducer (a la setState)
 import React, {useReducer, useEffect, useRef} from 'react'
 
 const buttonStyles = {
@@ -10,31 +10,12 @@ const buttonStyles = {
   width: 200,
 }
 
-function reducer(state, action) {
-  switch (action.type) {
-    case 'LAPSE':
-      return {
-        ...state,
-        lapse: action.now - action.startTime,
-      }
-    case 'TOGGLE_RUNNING':
-      return {
-        ...state,
-        running: !state.running,
-      }
-    case 'CLEAR':
-      return {
-        ...state,
-        running: false,
-        lapse: 0,
-      }
-    default:
-      break
-  }
+function reducer(currentState, newState) {
+  return {...currentState, ...newState}
 }
 
 function Stopwatch() {
-  const [{running, lapse}, dispatch] = useReducer(reducer, {
+  const [{running, lapse}, setState] = useReducer(reducer, {
     running: false,
     lapse: 0,
   })
@@ -48,15 +29,15 @@ function Stopwatch() {
     } else {
       const startTime = Date.now() - lapse
       timerRef.current = setInterval(() => {
-        dispatch({type: 'LAPSE', now: Date.now(), startTime})
+        setState({lapse: Date.now() - startTime})
       }, 0)
     }
-    dispatch({type: 'TOGGLE_RUNNING'})
+    setState({running: !running})
   }
 
   function handleClearClick() {
     clearInterval(timerRef.current)
-    dispatch({type: 'CLEAR'})
+    setState({running: false, lapse: 0})
   }
 
   return (
@@ -86,6 +67,6 @@ function Stopwatch() {
 function Usage() {
   return <Stopwatch />
 }
-Usage.title = 'Stopwatch: useReducer (a la redux)'
+Usage.title = 'Stopwatch: useReducer (a la setState)'
 
 export default Usage

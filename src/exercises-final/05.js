@@ -5,12 +5,13 @@ import VanillaTilt from 'vanilla-tilt'
 function Tilt(props) {
   const tiltNode = useRef()
   useLayoutEffect(() => {
-    VanillaTilt.init(tiltNode.current, {
+    const vanillaTiltOptions = {
       max: 25,
       speed: 400,
       glare: true,
       'max-glare': 0.5,
-    })
+    }
+    VanillaTilt.init(tiltNode.current, vanillaTiltOptions)
     return () => tiltNode.current.vanillaTilt.destroy()
   }, [])
   return (

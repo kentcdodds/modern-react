@@ -13,7 +13,9 @@ test('fetches pokemon data when form is submitted', async () => {
   const name = getByLabelText(/name/i)
   name.value = 'Charzard'
   fireEvent.click(getByText(/submit/i))
-  expect(mockFetchPokemon).toHaveBeenCalledTimes(1)
+
+  // must await for the lazy-load of the PokemonInfo :)
+  await wait(() => expect(mockFetchPokemon).toHaveBeenCalledTimes(1))
 
   mockFetchPokemon.mockClear()
 

@@ -1,100 +1,52 @@
-// Stopwatch: Custom hook
-import React, {useReducer, useEffect, useRef} from 'react'
+// Fundamental Suspense
+import React, {Suspense, useState} from 'react'
+import ErrorBoundary from 'react-error-boundary'
+import fetchPokemon from '../fetch-pokemon'
 
-const buttonStyles = {
-  border: '1px solid #ccc',
-  background: '#fff',
-  fontSize: '2em',
-  padding: 15,
-  margin: 5,
-  width: 200,
-}
+const cache = {}
 
-function reducer(currentState, newState) {
-  return {...currentState, ...newState}
-}
-
-function useStopwatch() {
-  const [{running, lapse}, setState] = useReducer(reducer, {
-    running: false,
-    lapse: 0,
-  })
-  const timerRef = useRef({timer: null})
-
-  useEffect(() => () => clearInterval(timerRef.current), [])
-
-  function handleRunClick() {
-    if (running) {
-      clearInterval(timerRef.current)
-    } else {
-      const startTime = Date.now() - lapse
-      timerRef.current = setInterval(() => {
-        setState({lapse: Date.now() - startTime})
-      }, 0)
-    }
-    setState({running: !running})
+function FetchPokemon({pokemonName}) {
+  const pokemon = cache[pokemonName]
+  if (!pokemon) {
+    const promise = fetchPokemon(pokemonName).then(
+      pokemon => (cache[pokemonName] = pokemon),
+    )
+    throw promise
   }
-
-  function handleClearClick() {
-    clearInterval(timerRef.current)
-    setState({running: false, lapse: 0})
-  }
-  return {handleRunClick, handleClearClick, lapse, running}
+  return <pre>{JSON.stringify(pokemon || 'Unknown', null, 2)}</pre>
 }
 
-function Stopwatch() {
-  const stopwatchOne = useStopwatch()
-  const stopwatchTwo = useStopwatch()
-
+function PokemonInfo({pokemonName}) {
   return (
-    <div style={{textAlign: 'center'}}>
-      <label
-        style={{
-          fontSize: '5em',
-          display: 'block',
-        }}
-      >
-        {stopwatchOne.lapse}
-        ms
-      </label>
-      <button onClick={stopwatchOne.handleRunClick} style={buttonStyles}>
-        {stopwatchOne.running ? 'Stop' : 'Start'}
-      </button>
-      <button onClick={stopwatchOne.handleClearClick} style={buttonStyles}>
-        Clear
-      </button>
-      <hr />
-      <strong>Lapse Difference:</strong>
-      <span data-testid="diff">
-        {stopwatchOne.lapse - stopwatchTwo.lapse}
-        ms
-      </span>
-      <hr />
-      <label
-        style={{
-          fontSize: '5em',
-          display: 'block',
-        }}
-      >
-        {stopwatchTwo.lapse}
-        ms
-      </label>
-      <button onClick={stopwatchTwo.handleRunClick} style={buttonStyles}>
-        {stopwatchTwo.running ? 'Stop' : 'Start'}
-      </button>
-      <button onClick={stopwatchTwo.handleClearClick} style={buttonStyles}>
-        Clear
-      </button>
-    </div>
+    <ErrorBoundary FallbackComponent={() => 'There was an error...'}>
+      <Suspense fallback="loading...">
+        <FetchPokemon pokemonName={pokemonName} />
+      </Suspense>
+    </ErrorBoundary>
   )
 }
 
 // Don't make changes to the Usage component. It's here to show you how your
 // component is intended to be used and is used in the tests.
-
 function Usage() {
-  return <Stopwatch />
+  const [pokemonName, setPokemonName] = useState(null)
+  function handleSubmit(e) {
+    e.preventDefault()
+    setPokemonName(e.target.elements.pokemonName.value)
+  }
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="pokemonName-input">Pokemon Name (ie Pikachu)</label>
+        <input id="pokemonName-input" name="pokemonName" />
+        <button type="submit">Submit</button>
+      </form>
+      <div>
+        {pokemonName ? <PokemonInfo pokemonName={pokemonName} /> : null}
+      </div>
+    </div>
+  )
 }
-Usage.title = 'Stopwatch: Custom hook'
+Usage.title = 'Fundamental Suspense'
 
 export default Usage

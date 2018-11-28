@@ -1,28 +1,20 @@
-// Fundamental Suspense
+// Suspense with react-cache
 import React, {Suspense, useState} from 'react'
-import ErrorBoundary from 'react-error-boundary'
+import {unstable_createResource as createResource} from 'react-cache'
 import fetchPokemon from '../fetch-pokemon'
 
-const cache = {}
+const myPokemon = createResource(fetchPokemon)
 
 function FetchPokemon({pokemonName}) {
-  const pokemon = cache[pokemonName]
-  if (!pokemon) {
-    const promise = fetchPokemon(pokemonName).then(
-      pokemon => (cache[pokemonName] = pokemon),
-    )
-    throw promise
-  }
+  const pokemon = myPokemon.read(pokemonName)
   return <pre>{JSON.stringify(pokemon || 'Unknown', null, 2)}</pre>
 }
 
 function PokemonInfo({pokemonName}) {
   return (
-    <ErrorBoundary FallbackComponent={() => 'There was an error...'}>
-      <Suspense fallback="loading...">
-        <FetchPokemon pokemonName={pokemonName} />
-      </Suspense>
-    </ErrorBoundary>
+    <Suspense fallback="loading...">
+      <FetchPokemon pokemonName={pokemonName} />
+    </Suspense>
   )
 }
 
@@ -47,6 +39,6 @@ function Usage() {
     </div>
   )
 }
-Usage.title = 'Fundamental Suspense'
+Usage.title = 'Suspense with react-cache'
 
 export default Usage

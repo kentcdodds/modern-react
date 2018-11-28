@@ -1,4 +1,4 @@
-// Counter: useState lazy initialization
+// Counter: optimizations
 import React, {useState, useEffect} from 'react'
 
 function Counter() {
@@ -21,6 +21,6 @@ function Counter() {
 function Usage() {
   return <Counter />
 }
-Usage.title = 'Counter: useState lazy initialization'
+Usage.title = 'Counter: optimizations'
 
 export default Usage

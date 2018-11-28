@@ -1,47 +1,36 @@
 import React from 'react'
-import chalk from 'chalk'
-import {render, fireEvent} from 'react-testing-library'
+import {render, fireEvent, wait} from 'react-testing-library'
+import mockFetchPokemon from '../fetch-pokemon'
 import Usage from '../exercises-final/10'
 // import Usage from '../exercises/10'
 
-const sleep = time => new Promise(resolve => setTimeout(resolve, time))
+jest.mock('../fetch-pokemon', () =>
+  jest.fn(name => Promise.resolve({mokePokemon: true, name})),
+)
 
-test('renders', async () => {
-  jest.spyOn(console, 'error')
-  const {container, getAllByText, getByTestId} = render(<Usage />)
-  const diff = getByTestId('diff')
-  const timer1 = {
-    startStop: getAllByText('Start')[0],
-    clear: getAllByText('Clear')[0],
-    label: container.querySelectorAll('label')[0],
-  }
-  const timer2 = {
-    startStop: getAllByText('Start')[1],
-    clear: getAllByText('Clear')[1],
-    label: container.querySelectorAll('label')[1],
-  }
+test('fetches pokemon data when form is submitted', async () => {
+  const {getByLabelText, getByText} = render(<Usage />)
+  const name = getByLabelText(/name/i)
+  name.value = 'Charzard'
+  fireEvent.click(getByText(/submit/i))
+  expect(mockFetchPokemon).toHaveBeenCalledTimes(1)
 
-  fireEvent.click(timer1.startStop)
+  mockFetchPokemon.mockClear()
 
-  await sleep(200)
+  await wait(() => getByText(/Charzard/))
+  name.value = 'Pikachu'
+  fireEvent.click(getByText(/submit/i))
+  expect(mockFetchPokemon).toHaveBeenCalledTimes(1)
+  await wait(() => getByText(/Pikachu/))
 
-  expect(parseInt(diff.textContent, 10)).toBeGreaterThan(150)
+  mockFetchPokemon.mockClear()
 
-  fireEvent.click(timer2.startStop)
-
-  await sleep(200)
-  try {
-    expect(parseInt(timer2.label.textContent, 10)).toBeGreaterThan(150)
-    expect(parseInt(diff.textContent, 10)).toBeLessThan(300)
-  } catch (error) {
-    error.message = [
-      chalk.red(
-        `🚨  The stopwatch time is not being incremented or we can't find it. Make sure the time lapsed is in a <label> and ensure that state is set properly. 🚨`,
-      ),
-      error.message,
-    ].join('\n')
-    throw error
-  }
+  // TODO: the error case leads to an infinite loop in react
+  // mockFetchPokemon.mockRejectedValue({error: 'fake failure'})
+  // name.value = 'fail'
+  // fireEvent.click(getByText(/submit/i))
+  // expect(mockFetchPokemon).toHaveBeenCalledTimes(1)
+  // await wait(() => getByText(/error/i))
 })
 
 //////// Elaboration & Feedback /////////
