@@ -2,6 +2,8 @@
 // 🐨 1. you'll want useRef, and useLayoutEffect
 // you can use `useLayoutEffect` the same way you use `useEffect`.
 // Make sure to ask me what the difference is!
+// https://reactjs.org/docs/hooks-reference.html#useref
+// https://reactjs.org/docs/hooks-reference.html#uselayouteffect
 import React from 'react'
 // 🐨 2. you'll need this:
 // import VanillaTilt from 'vanilla-tilt'

@@ -1,14 +1,36 @@
 import React from 'react'
-import {render, fireEvent} from 'react-testing-library'
+import {render, fireEvent, wait} from 'react-testing-library'
+import mockFetchPokemon from '../fetch-pokemon'
 import Usage from '../exercises-final/13'
 // import Usage from '../exercises/13'
 
-test('renders upper case first and last name', async () => {
+jest.mock('../fetch-pokemon', () =>
+  jest.fn(name => Promise.resolve({mokePokemon: true, name})),
+)
+
+test('fetches pokemon data when form is submitted', async () => {
   const {getByLabelText, getByText} = render(<Usage />)
-  fireEvent.change(getByLabelText(/first/i), {target: {value: 'first'}})
-  getByText(/FIRST/)
-  fireEvent.change(getByLabelText(/last/i), {target: {value: 'last'}})
-  getByText(/LAST/)
+  const name = getByLabelText(/name/i)
+  name.value = 'Charzard'
+  fireEvent.click(getByText(/submit/i))
+  expect(mockFetchPokemon).toHaveBeenCalledTimes(1)
+
+  mockFetchPokemon.mockClear()
+
+  await wait(() => getByText(/Charzard/))
+  name.value = 'Pikachu'
+  fireEvent.click(getByText(/submit/i))
+  expect(mockFetchPokemon).toHaveBeenCalledTimes(1)
+  await wait(() => getByText(/Pikachu/))
+
+  mockFetchPokemon.mockClear()
+
+  // TODO: the error case leads to an infinite loop in react
+  // mockFetchPokemon.mockRejectedValue({error: 'fake failure'})
+  // name.value = 'fail'
+  // fireEvent.click(getByText(/submit/i))
+  // expect(mockFetchPokemon).toHaveBeenCalledTimes(1)
+  // await wait(() => getByText(/error/i))
 })
 
 //////// Elaboration & Feedback /////////

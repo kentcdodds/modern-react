@@ -48,21 +48,12 @@ function Stopwatch() {
 
   return (
     <div style={{textAlign: 'center'}}>
-      <label
-        style={{
-          fontSize: '5em',
-          display: 'block',
-        }}
-      >
-        {stopwatchOne.lapse}
-        ms
-      </label>
-      <button onClick={stopwatchOne.handleRunClick} style={buttonStyles}>
-        {stopwatchOne.running ? 'Stop' : 'Start'}
-      </button>
-      <button onClick={stopwatchOne.handleClearClick} style={buttonStyles}>
-        Clear
-      </button>
+      <StopwatchView
+        lapse={stopwatchOne.lapse}
+        running={stopwatchOne.running}
+        onRunClick={stopwatchOne.handleRunClick}
+        onClearClick={stopwatchOne.handleClearClick}
+      />
       <hr />
       <strong>Lapse Difference:</strong>
       <span data-testid="diff">
@@ -70,22 +61,35 @@ function Stopwatch() {
         ms
       </span>
       <hr />
+      <StopwatchView
+        lapse={stopwatchTwo.lapse}
+        running={stopwatchTwo.running}
+        onRunClick={stopwatchTwo.handleRunClick}
+        onClearClick={stopwatchTwo.handleClearClick}
+      />
+    </div>
+  )
+}
+
+function StopwatchView({lapse, running, onRunClick, onClearClick}) {
+  return (
+    <>
       <label
         style={{
           fontSize: '5em',
           display: 'block',
         }}
       >
-        {stopwatchTwo.lapse}
+        {lapse}
         ms
       </label>
-      <button onClick={stopwatchTwo.handleRunClick} style={buttonStyles}>
-        {stopwatchTwo.running ? 'Stop' : 'Start'}
+      <button onClick={onRunClick} style={buttonStyles}>
+        {running ? 'Stop' : 'Start'}
       </button>
-      <button onClick={stopwatchTwo.handleClearClick} style={buttonStyles}>
+      <button onClick={onClearClick} style={buttonStyles}>
         Clear
       </button>
-    </div>
+    </>
   )
 }
 

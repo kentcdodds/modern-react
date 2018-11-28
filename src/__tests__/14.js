@@ -1,8 +1,8 @@
 import React from 'react'
 import {render, fireEvent, wait} from 'react-testing-library'
 import mockFetchPokemon from '../fetch-pokemon'
-import Usage from '../exercises-final/11'
-// import Usage from '../exercises/11'
+import Usage from '../exercises-final/14'
+// import Usage from '../exercises/14'
 
 jest.mock('../fetch-pokemon', () =>
   jest.fn(name => Promise.resolve({mokePokemon: true, name})),
@@ -40,7 +40,7 @@ test('fetches pokemon data when form is submitted', async () => {
 // 3. Change submitted from `false` to `true`
 // 4. And you're all done!
 /*
-http://ws.kcd.im/?ws=modern%20react&e=11&em=
+http://ws.kcd.im/?ws=modern%20react&e=14&em=
 */
 test.skip('I submitted my elaboration and feedback', () => {
   const submitted = false // change this when you've submitted!

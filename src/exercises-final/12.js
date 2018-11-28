@@ -1,34 +1,37 @@
-// FetchPokemon: React.lazy
+// VanillaTilt: React.lazy
 import React, {Suspense, useState} from 'react'
 
-const PokemonInfo = React.lazy(() => import('../pokemon-info'))
+const Tilt = React.lazy(() => import('../tilt'))
 
 // Don't make changes to the Usage component. It's here to show you how your
 // component is intended to be used and is used in the tests.
 
 function Usage() {
-  const [pokemonName, setPokemonName] = useState(null)
-  function handleSubmit(e) {
-    e.preventDefault()
-    setPokemonName(e.target.elements.pokemonName.value)
-  }
+  const [showTilt, setShowTilt] = useState()
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="pokemonName-input">Pokemon Name (ie Pikachu)</label>
-        <input id="pokemonName-input" name="pokemonName" />
-        <button type="submit">Submit</button>
-      </form>
+      <label>
+        <input
+          type="checkbox"
+          value={showTilt}
+          onChange={e => setShowTilt(e.target.checked)}
+        />
+        {' show tilt'}
+      </label>
       <div>
-        {pokemonName ? (
-          <Suspense maxDuration={1000} fallback="">
-            <PokemonInfo pokemonName={pokemonName} />
-          </Suspense>
-        ) : null}
+        <Suspense fallback="loading...">
+          {showTilt ? (
+            <div className="totally-centered">
+              <Tilt>
+                <div className="totally-centered">vanilla-tilt.js</div>
+              </Tilt>
+            </div>
+          ) : null}
+        </Suspense>
       </div>
     </div>
   )
 }
-Usage.title = 'FetchPokemon: React.lazy'
+Usage.title = 'VanillaTilt: React.lazy'
 
 export default Usage
