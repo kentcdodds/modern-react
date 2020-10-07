@@ -1,3 +1,29 @@
+# DEPRECATED
+
+Instead of this repo, you want:
+
+<div>
+  <h1 align="center"><a href="https://epicreact.dev">🚀 EpicReact.Dev</a></h1>
+  <strong>
+    Confidently Ship Well-Architected Production Ready React Apps Like a Pro
+  </strong>
+  <a href="https://epicreact.dev">
+    <img
+      alt="Learn React from Start to Finish"
+      src="https://kentcdodds.com/images/epicreact-promo/er-1.gif"
+    />
+  </a>
+</div>
+
+<hr />
+
+Seriously, get [EpicReact.Dev](https://epicreact.dev) instead. It's better.
+
+You can find all the [EpicReact.Dev](https://epicreact.dev) material on GitHub:
+[https://github.com/topics/epicreact-dev](https://github.com/topics/epicreact-dev)
+
+Original README content:
+
 # Modern React
 
 👋 hi there! My name is [Kent C. Dodds](https://kentcdodds.com)! This is a
